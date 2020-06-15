@@ -42,7 +42,7 @@ public class Deque<Item> implements Iterable<Item> {
     	
     	Node node = new Node(item);
     	
-    	if(isEmpty()) {
+    	if (isEmpty()) {
     		head = tail = node;
     	} else {
     		head.prev = node;
@@ -53,7 +53,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     private void validate(Item item) {
-    	if(item == null) throw new IllegalArgumentException("Item connot be null."); 
+    	if (item == null) throw new IllegalArgumentException("Item connot be null."); 
 	}
 
 	// add the item to the back
@@ -62,7 +62,7 @@ public class Deque<Item> implements Iterable<Item> {
     	
     	Node node = new Node(item);
 
-    	if(isEmpty()) {
+    	if (isEmpty()) {
     		head = tail = node;
     	} else {
     		tail.next = node;
@@ -74,12 +74,12 @@ public class Deque<Item> implements Iterable<Item> {
 
     // remove and return the item from the front
     public Item removeFirst() {
-    	if(isEmpty()) throw new NoSuchElementException("Deque is empty.");
+    	if (isEmpty()) throw new NoSuchElementException("Deque is empty.");
     	
     	Node node = head;
     	head = head.next;
     	node.next = null;
-    	if(head != null) 
+    	if (head != null) 
     		head.prev = null;
     	
     	size--;
@@ -88,12 +88,12 @@ public class Deque<Item> implements Iterable<Item> {
 
     // remove and return the item from the back
     public Item removeLast() {
-    	if(isEmpty()) throw new NoSuchElementException("Deque is empty.");
+    	if (isEmpty()) throw new NoSuchElementException("Deque is empty.");
     
     	Node node = tail;
     	tail = tail.prev;
     	node.prev = null;
-    	if(tail != null) 
+    	if (tail != null) 
     		tail.next = null;
     	
     	size--;
@@ -130,8 +130,7 @@ public class Deque<Item> implements Iterable<Item> {
      *
      * TODO remove this method before your submission.
      */
-    @Override
-    public String toString() {
+    private String printDeque() {
         String result = "";
         for (Item item : this) {
             result += "," + item;
@@ -149,25 +148,25 @@ public class Deque<Item> implements Iterable<Item> {
         // Test 1: public operations
         Deque<Integer> d1 = new Deque<>();
         StdOut.println("Test 1A passed? " + d1.isEmpty());
-        StdOut.println("Test 1B passed? " + d1.toString().equals("[]"));
+        StdOut.println("Test 1B passed? " + d1.printDeque().equals("[]"));
         d1.addLast(1);
         d1.addLast(2);
-        StdOut.println("Test 1C passed? " + d1.toString().equals("[1,2]"));
+        StdOut.println("Test 1C passed? " + d1.printDeque().equals("[1,2]"));
         StdOut.println("Test 1D passed? " + (d1.size() == 2));
         StdOut.println("Test 1E passed? " + (d1.iterator().next() == 1));
         d1.addFirst(0);
-        StdOut.println("Test 1F passed? " + d1.toString().equals("[0,1,2]"));
+        StdOut.println("Test 1F passed? " + d1.printDeque().equals("[0,1,2]"));
         d1.removeLast();
-        StdOut.println("Test 1G passed? " + d1.toString().equals("[0,1]"));
+        StdOut.println("Test 1G passed? " + d1.printDeque().equals("[0,1]"));
 
         d1.removeFirst();
-        StdOut.println("Test 1H passed? " + d1.toString().equals("[1]"));
+        StdOut.println("Test 1H passed? " + d1.printDeque().equals("[1]"));
         d1.removeFirst();
-        StdOut.println("Test 1I passed? " + d1.toString().equals("[]"));
+        StdOut.println("Test 1I passed? " + d1.printDeque().equals("[]"));
         StdOut.println("Test 1J passed? " + d1.isEmpty());
         StdOut.println("Test 1H passed? " + !d1.iterator().hasNext());
 
-        // Test 2: exceptions
+      /*  // Test 2: exceptions
         Deque<Integer> d2 = new Deque<>();
         try {
             d2.removeFirst();
@@ -210,14 +209,14 @@ public class Deque<Item> implements Iterable<Item> {
         } catch (Exception e) {
             boolean result = e instanceof NoSuchElementException;
             StdOut.println("Test 2G passed? " + result);
-        }
+        } */
 
         // Test 3: types
         Deque<String> d3a = new Deque<>();
         d3a.addFirst("Hello Algorithm");
         StdOut.println("Test 3A passed? " + true);
         Deque<Double> d3b = new Deque<>();
-        d3b.addLast(3.1415926);
+        d3b.addLast(Math.PI);
         StdOut.println("Test 3B passed? " + true);
 
         StdOut.println("Tests finished.");

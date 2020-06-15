@@ -78,8 +78,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	 *
 	 * TODO remove this method before your submission.
 	 */
-	@Override
-	public String toString() {
+	private String printRandomizedQueue() {
 		String result = "";
 		for (int i = 0; i < size; i++) {
 			result += "," + randomQueue[i];
@@ -124,40 +123,40 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		// Test 1: public opeations
 		RandomizedQueue<Integer> q1 = new RandomizedQueue<>();
 		StdOut.println("Test 1A passed? " + q1.isEmpty());
-		StdOut.println("Test 1B passed? " + q1.toString().equals("[]"));
+		StdOut.println("Test 1B passed? " + q1.printRandomizedQueue().equals("[]"));
 
 		q1.enqueue(1);
 		q1.enqueue(2);
-		StdOut.println("Test 1C passed? " + q1.toString().equals("[1,2]"));
+		StdOut.println("Test 1C passed? " + q1.printRandomizedQueue().equals("[1,2]"));
 		StdOut.println("Test 1D passed? " + (q1.size() == 2));
 		int test1E = q1.iterator().next();
 		StdOut.println("Test 1E passed? " + (test1E == 1 || test1E == 2));
 		q1.enqueue(3);
 		q1.enqueue(4);
-		StdOut.println("Test 1F passed? " + q1.toString().equals("[1,2,3,4]"));
+		StdOut.println("Test 1F passed? " + q1.printRandomizedQueue().equals("[1,2,3,4]"));
 		q1.dequeue();
-		String test1G = q1.toString();
+		String test1G = q1.printRandomizedQueue();
 		StdOut.println("Test 1G passed? " + (test1G.equals("[4,2,3]") || test1G.equals("[1,4,3]")
 				|| test1G.equals("[1,2,4]") || test1G.equals("[1,2,3]")));
 		q1.dequeue();
 		q1.dequeue();
 		// Queue should be resized when 25% full: the size will be reduced by
 		// 50%. However, the unused elements in the new array are not visible
-		// because they're excluded by the {@code toString()} method.
-		String test1H = q1.toString();
+		// because they're excluded by the {@code printRandomizedQueue()} method.
+		String test1H = q1.printRandomizedQueue();
 		StdOut.println("Test 1H passed? "
 				+ (test1H.equals("[1]") || test1H.equals("[2]") || test1H.equals("[3]") || test1H.equals("[4]")));
 		q1.dequeue();
-		StdOut.println("Test 1I passed? " + q1.toString().equals("[]"));
+		StdOut.println("Test 1I passed? " + q1.printRandomizedQueue().equals("[]"));
 		StdOut.println("Test 1J passed? " + q1.isEmpty());
 		StdOut.println("Test 1K passed? " + !q1.iterator().hasNext());
 		StdOut.println("Test 1L passed? " + (q1.iterator() != q1.iterator()));
 		q1.enqueue(1);
-		StdOut.println("Test 1M passed? " + q1.toString().equals("[1]"));
+		StdOut.println("Test 1M passed? " + q1.printRandomizedQueue().equals("[1]"));
 		q1.enqueue(2);
-		StdOut.println("Test 1N passed? " + q1.toString().equals("[1,2]"));
+		StdOut.println("Test 1N passed? " + q1.printRandomizedQueue().equals("[1,2]"));
 
-		// Test 2: exceptions
+		/* // Test 2: exceptions
 		RandomizedQueue<Integer> q2 = new RandomizedQueue<>();
 		try {
 			q2.dequeue();
@@ -193,14 +192,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		} catch (Exception e) {
 			boolean result = e instanceof NoSuchElementException;
 			StdOut.println("Test 2E passed? " + result);
-		}
+		} */
 
 		// Test 3: types
 		RandomizedQueue<String> q3A = new RandomizedQueue<>();
 		q3A.enqueue("Hello Algorithm");
 		StdOut.println("Test 3A passed? " + true);
 		RandomizedQueue<Double> q3B = new RandomizedQueue<>();
-		q3B.enqueue(3.1415926);
+		q3B.enqueue(Math.PI);
 		StdOut.println("Test 3B passed? " + true);
 
 		StdOut.println("Tests finished.");
