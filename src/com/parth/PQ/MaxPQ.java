@@ -1,5 +1,11 @@
 package com.parth.PQ;
 
+/**
+ * Arr[(i-1)/2] Returns the parent node 
+ * Arr[(2*i)+1] Returns the left child node
+ * Arr[(2*i)+2] Returns the right child node
+ */
+
 public class MaxPQ<Key extends Comparable<Key>> {
 
 	Key[] keys;
@@ -19,7 +25,8 @@ public class MaxPQ<Key extends Comparable<Key>> {
 	}
 
 	public Key delMax() {
-		if(isEmpty()) return null;
+		if (isEmpty())
+			return null;
 		Key max = keys[0];
 		swap(0, --N);
 		sink(0);
@@ -56,7 +63,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
 			k = j;
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		MaxPQ<Integer> heap = new MaxPQ<>(10);
 		heap.insert(5);
