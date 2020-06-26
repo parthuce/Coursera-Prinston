@@ -42,7 +42,10 @@ public class Board {
 	public int hamming() {
 		int hd = 0;
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n - 1; j++) {
+			for (int j = 0; j < n; j++) {
+				if (tiles[i][j] == 0) {
+					continue;
+				}
 				if (tiles[i][j] != n * i + j + 1)
 					hd++;
 			}
@@ -81,7 +84,7 @@ public class Board {
 
 		List<Board> neighbors = new LinkedList<>();
 		int row = 0, col = 0;
-	//	row = col = -1;
+		// row = col = -1;
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -144,8 +147,8 @@ public class Board {
 			newRow = StdRandom.uniform(0, n);
 			newCol = StdRandom.uniform(0, n);
 		} while (tiles[row][col] != 0 && tiles[newRow][newCol] != 0);
-		
-		int [][] twin = clone(tiles);
+
+		int[][] twin = clone(tiles);
 		swap(twin, row, col, newRow, newCol);
 		return new Board(twin);
 
