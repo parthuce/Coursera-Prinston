@@ -9,7 +9,6 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Solver {
 
-	private MinPQ<SearchNode> pq;
 	private SearchNode solutionNode;
 	private boolean isSolvable;
 
@@ -49,7 +48,7 @@ public class Solver {
 			throw new IllegalArgumentException("Initial board can't be a null");
 		}
 
-		pq = new MinPQ<>();
+		MinPQ<SearchNode> pq = new MinPQ<>();
 		solutionNode = null;
 		pq.insert(new SearchNode(initial, null, 0));
 

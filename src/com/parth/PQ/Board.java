@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Board {
 
-	private int[][] tiles;
+	private final int[][] tiles;
 
 	private final int n;
 
@@ -74,6 +74,9 @@ public class Board {
 
 	// does this board equal y?
 	public boolean equals(Object y) {
+		if (y == this) return true;
+		if (y == null) return false;
+		if (!(y instanceof Board)) return false; 
 		return Arrays.deepEquals(tiles, ((Board) y).tiles);
 	}
 
@@ -83,9 +86,8 @@ public class Board {
 		List<Board> neighbors = new LinkedList<>();
 		int row = 0, col = 0;
 		// row = col = -1;
-		
-		outerloop:
-		for (int i = 0; i < n; i++) {
+
+		outerloop: for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (tiles[i][j] == 0) {
 					row = i;
@@ -139,10 +141,9 @@ public class Board {
 
 	// a board that is obtained by exchanging any pair of tiles
 	public Board twin() {
-		
+
 		int row = 0;
-		outerloop:
-		for (int i = 0; i < n; i++) {
+		outerloop: for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (tiles[i][j] == 0) {
 					row = i;
@@ -150,14 +151,14 @@ public class Board {
 				}
 			}
 		}
-		
+
 		int[][] twin = clone(tiles);
-        if (row != 0) {
-            swap(twin, 0, 0, 0, 1);
-        } else {
-            swap(twin, 1, 0, 1, 1);
-        }
-        return new Board(twin);
+		if (row != 0) {
+			swap(twin, 0, 0, 0, 1);
+		} else {
+			swap(twin, 1, 0, 1, 1);
+		}
+		return new Board(twin);
 	}
 
 	// unit testing (not graded)
