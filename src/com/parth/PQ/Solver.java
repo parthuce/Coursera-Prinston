@@ -25,13 +25,13 @@ public class Solver {
 			this.moves = moves;
 		}
 
-		public int hummingPriority() {
+		private int hummingPriority() {
 			if (priority == -1)
 				priority = moves + current.hamming();
 			return priority;
 		}
 
-		public int manhattanPriority() {
+		private int manhattanPriority() {
 			if (priority == -1)
 				priority = moves + current.manhattan();
 			return priority;
