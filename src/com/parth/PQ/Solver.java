@@ -60,6 +60,11 @@ public class Solver {
 				isSolvable = true;
 				break;
 			}
+			
+			if (node.current.hamming() == 2 && node.current.twin().isGoal()) {
+                isSolvable = false;
+                break;
+            }
 			for (Board board : node.current.neighbors()) {
 				if (node.previous != null && board.equals(node.previous.current))
 					continue;

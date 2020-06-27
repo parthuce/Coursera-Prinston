@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.princeton.cs.algs4.StdRandom;
-
 public class Board {
 
 	private int[][] tiles;
@@ -85,13 +83,14 @@ public class Board {
 		List<Board> neighbors = new LinkedList<>();
 		int row = 0, col = 0;
 		// row = col = -1;
-
+		
+		outerloop:
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (tiles[i][j] == 0) {
 					row = i;
 					col = j;
-					break;
+					break outerloop;
 				}
 			}
 		}
@@ -140,18 +139,25 @@ public class Board {
 
 	// a board that is obtained by exchanging any pair of tiles
 	public Board twin() {
-		int row, col, newRow, newCol;
-		do {
-			row = StdRandom.uniform(0, n);
-			col = StdRandom.uniform(0, n);
-			newRow = StdRandom.uniform(0, n);
-			newCol = StdRandom.uniform(0, n);
-		} while (tiles[row][col] != 0 && tiles[newRow][newCol] != 0);
-
+		
+		int row = 0;
+		outerloop:
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (tiles[i][j] == 0) {
+					row = i;
+					break outerloop;
+				}
+			}
+		}
+		
 		int[][] twin = clone(tiles);
-		swap(twin, row, col, newRow, newCol);
-		return new Board(twin);
-
+        if (row != 0) {
+            swap(twin, 0, 0, 0, 1);
+        } else {
+            swap(twin, 1, 0, 1, 1);
+        }
+        return new Board(twin);
 	}
 
 	// unit testing (not graded)
