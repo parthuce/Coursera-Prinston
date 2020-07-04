@@ -24,12 +24,6 @@ public class Solver {
 			this.moves = moves;
 		}
 
-		private int hummingPriority() {
-			if (priority == -1)
-				priority = moves + current.hamming();
-			return priority;
-		}
-
 		private int manhattanPriority() {
 			if (priority == -1)
 				priority = moves + current.manhattan();
