@@ -339,6 +339,29 @@ public class BST<K extends Comparable<K>, V> {
 		return node;
 	}
 
+	public Iterable<K> levelOrer() {
+		Queue<K> queue = new LinkedList<>();
+		Queue<Node<K,V>> nodes = new LinkedList<Node<K,V>>();
+		nodes.add(root);
+		while(!nodes.isEmpty()) {
+			Node<K,V> node = nodes.poll();
+			if(node == null) continue;
+			queue.add(node.key);
+			nodes.add(node.left);
+			nodes.add(node.right);
+		}
+		return queue;
+	}
+	
+	public int height() {
+		return height(root);
+	}
+	
+	public int height(Node<K,V> node) {
+		if (node == null) return -1;
+		return 1 + Math.max(height(node.left), height(node.right));
+	}
+	
 	public static void main(String[] args) {
 		/* BST<String, Integer> st = new BST<>();
 		st.putR("A", 1);
@@ -405,7 +428,14 @@ public class BST<K extends Comparable<K>, V> {
             StdOut.println();
         }
         StdOut.println();
+        
+        StdOut.println("Level order");
+        StdOut.println("--------------------------------");
+        for (String string : st.levelOrer()) {
+			System.out.println(string);
+		}
 
+        StdOut.println();
         // delete the smallest keys
         for (int i = 0; i < st.size() / 2; i++) {
             st.deleteMin();
