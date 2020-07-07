@@ -78,6 +78,7 @@ public class BinarySearchST <K extends Comparable<K>, V> {
 	}
 	
 	public int rank(K key) {
+		if (key == null) throw new IllegalArgumentException("Key Can't be null");
 		int low = 0, high = size - 1;
 		while (low <= high) {
 			int middle = low + (high - low) / 2;
