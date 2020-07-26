@@ -8,8 +8,8 @@ import edu.princeton.cs.algs4.RectHV;
 
 public class KdTree {
 
-	Node root = null;
-	int size = 0;
+	private Node root = null;
+	private int size = 0;
 
 	private static class Node {
 		public Node(Point2D p) {
@@ -150,16 +150,16 @@ public class KdTree {
 	public Point2D nearest(Point2D p) {
 		if (p == null)
 			throw new IllegalArgumentException("Point cannot be null");
-		if(root == null) return null;
+		if (root == null) return null;
 		return nearest(root, p, root.p, 1);
 		// a nearest neighbor in the set to point p; null if the set is empty
 	}
 
 	private Point2D nearest(Node node, Point2D p, Point2D closestPoint, int level) {
 		if(node == null) return closestPoint;
-		
-		if(node.rect.distanceSquaredTo(p) < closestPoint.distanceSquaredTo(p)) {
-			if(node.p.distanceSquaredTo(p) < closestPoint.distanceSquaredTo(p)) {
+		double closestDistance = closestPoint.distanceSquaredTo(p);
+		if (node.rect.distanceSquaredTo(p) < closestDistance) {
+			if (node.p.distanceSquaredTo(p) < closestDistance) {
 				closestPoint = node.p;
 			}
 			int mod = level % 2;
