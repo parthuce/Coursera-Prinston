@@ -92,7 +92,7 @@ public class SAP {
 
 	private void validateVertices(Iterable<Integer> vertices) {
 		if (vertices == null) {
-			throw new NullPointerException("argument is null");
+			throw new IllegalArgumentException("argument is null");
 		}
 		for (int v : vertices) {
 			validateVertex(v);

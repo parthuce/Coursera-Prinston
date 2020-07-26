@@ -1,10 +1,15 @@
 package com.parth.Graph;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
 
 public class Test {
 	
@@ -38,6 +43,11 @@ public class Test {
         deque.add(1);
         deque.push(1);
         
+        In in = new In(args[0]);
+		Digraph G = new Digraph(in);
+		BreadthFirstDirectedPaths bfs = new BreadthFirstDirectedPaths(G, new ArrayList<>());
+		System.out.println(bfs.pathTo(11));
+		System.out.println("graph");
 
 	}
 	
