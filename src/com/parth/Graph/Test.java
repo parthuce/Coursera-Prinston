@@ -1,54 +1,30 @@
 package com.parth.Graph;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.PriorityQueue;
 
-import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Edge;
+import edu.princeton.cs.algs4.EdgeWeightedGraph;
 
 public class Test {
 	
 	public static void main(String[] args) {
-		// Creating an empty Stack 
-        Stack<String> stack = new Stack<String>(); 
-  
-        // Use add() method to add elements into the Stack 
-        stack.add("Welcome"); 
-        stack.add("To"); 
-        stack.add("Geeks"); 
-        stack.add("4"); 
-        stack.add("Geeks"); 
-  
-        // Displaying the Stack 
-        System.out.println("Stack: " + stack); 
-  
-        // Creating an iterator 
-        Iterator value = stack.iterator(); 
-  
-        // Displaying the values 
-        // after iterating through the stack 
-        System.out.println("The iterator values are: "); 
-        while (value.hasNext()) { 
-            System.out.println(value.next()); 
-        } 
-        
-        Deque<Integer> deque = new LinkedList<>();
-        Queue<Integer> queue;
-        
-        deque.add(1);
-        deque.push(1);
-        
-        In in = new In(args[0]);
-		Digraph G = new Digraph(in);
-		BreadthFirstDirectedPaths bfs = new BreadthFirstDirectedPaths(G, new ArrayList<>());
-		System.out.println(bfs.pathTo(11));
-		System.out.println("graph");
-
+		
+		EdgeWeightedGraph G = new EdgeWeightedGraph(5);
+		Edge e = new Edge(0, 1, 0.55);
+		G.addEdge(e);
+		System.out.println(e.either());
+		System.out.println(e.other(e.either()));
+		//System.out.println(G);
+		for (Edge edge : G.edges()) {
+			System.out.println(edge);
+		}
+		
+		 PriorityQueue<Integer> pq= new PriorityQueue<Integer>();
+		 pq.offer(1);
+		 pq.poll();
+		 pq.isEmpty();
+		 
+		 System.out.println(Math.pow(0, 2));
 	}
 	
 
