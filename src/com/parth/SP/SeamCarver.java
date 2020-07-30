@@ -5,13 +5,11 @@ import edu.princeton.cs.algs4.Picture;
 public class SeamCarver {
 
 	private Picture picture;
-	private double[][] energy;
-	private boolean isTransposed;
 
 	// create a seam carver object based on the given picture
 	public SeamCarver(Picture picture) {
+		if (picture == null) throw new IllegalArgumentException("Picture is null");
 		this.picture = new Picture(picture);
-		energy = new double[picture.width()][picture.height()];
 	}
 
 	// current picture
@@ -38,10 +36,10 @@ public class SeamCarver {
 		validateRowIndex(y);
 		
 		if (x == 0 || y == 0 || x == width() - 1 || y == height() - 1) {
-			return energy[x][y] = 1000.0;
+			return 1000.0;
 		}
 		
-		return energy[x][y] = Math.sqrt((xGradiant(x,y) + yGradiant(x,y)));
+		return Math.sqrt((xGradiant(x, y) + yGradiant(x, y)));
 	}
 	
 	private void validateRowIndex(int row) {
@@ -74,9 +72,7 @@ public class SeamCarver {
 
 	// sequence of indices for horizontal seam
 	public int[] findHorizontalSeam() {		
-		if (!isTransposed) {
-			transpose();
-		}		
+		transpose();
 		int[] seam = findVerticalSeam();
 		transpose();
 		return seam;
@@ -140,55 +136,64 @@ public class SeamCarver {
 	
 	private void transpose() {
 		Picture transposed = new Picture(height(), width()); //flip height and width
-		double[][] energy = new double[height()][width()];
 		for (int col = 0; col < width(); col++) {
 			for (int row = 0; row < height(); row++) {
 				transposed.setRGB(row, col, picture.getRGB(col, row));
-				energy[row][col] = this.energy[col][row]; 
 			}
 		}
 		picture = transposed;
-		this.energy = energy;
-		isTransposed = !isTransposed;
 	}
 
 	// remove horizontal seam from current picture
 	public void removeHorizontalSeam(int[] seam) {
-		if (!isTransposed) {
-			transpose();
-		}		
+		transpose();
 		removeVerticalSeam(seam);
 		transpose();
 	}
 
 	// remove vertical seam from current picture
 	public void removeVerticalSeam(int[] seam) {
+		validateSeam(seam);
 		Picture picture = new Picture(width() - 1, height());
 		
-		int[][] image = new int[height()][width()];
-		int[][] destImage = new int[height()][width() - 1];
-		
-		for (int row = 0; row < height(); row++) {
-			for (int col = 0; col < width(); col++) {
-				image[row][col] = this.picture.getRGB(col, row);
-			}
-		}
-				
 		for (int row = 0; row < height(); row++) {
 			int index = seam[row];
-			System.arraycopy(image[row], 0, destImage[row], 0, index );
-			System.arraycopy(image[row], index + 1, destImage[row], index, (width() - index - 1) );
-		}
-		
-		for (int row = 0; row < height(); row++) {
 			for (int col = 0; col < width() - 1; col++) {
-				picture.setRGB(col, row, destImage[row][col]);
+				if (col < index) {
+					picture.setRGB(col, row, this.picture.getRGB(col, row));
+
+				} else {
+					picture.setRGB(col, row, this.picture.getRGB(col + 1, row));
+
+				}
 			}
 		}
-		
 		this.picture = picture;
 	}
 	
+	private void validateSeam(int[] seam) {
+		if (seam == null) throw new IllegalArgumentException("Seam is null");
+		if (!isValidSeam(seam) || width() <= 1) throw new IllegalArgumentException("Seam is not valid");
+	}
+	
+	private boolean isValidSeam(int[] seam) {
+        if (seam.length != height()) {
+            return false;
+        }
+        for (int i = 0; i < seam.length; i++) {
+            int entry = seam[i];
+            if (entry < 0 || entry > width() - 1) {
+                return false;
+            }
+            if (i != seam.length - 1) {
+                if (Math.abs(entry - seam[i + 1]) > 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 	// unit testing (optional)
 	public static void main(String[] args) {
         
