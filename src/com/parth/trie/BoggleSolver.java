@@ -7,9 +7,13 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TST;
 
+/*
+ * Ref : https://github.com/jiadaizhao/Algorithms-Part-II/blob/master/Week4/boggle/BoggleSolver.java
+ */
+
 public class BoggleSolver {
 
-	private TST<String> trie;
+	private final TST<String> trie;
 
 	// Initializes the data structure using the given array of strings as the
 	// dictionary.
@@ -26,11 +30,12 @@ public class BoggleSolver {
 	// Returns the set of all valid words in the given Boggle board, as an Iterable.
 	public Iterable<String> getAllValidWords(BoggleBoard board) {
 		if (board == null) throw new IllegalArgumentException("board must be valid.");
+		boolean[][] marked = new boolean[32][32];
+		StringBuilder str = new StringBuilder();
 		Set<String> words = new HashSet<>();
 		for (int i = 0; i < board.rows(); i++) {
 			for (int j = 0; j < board.cols(); j++) {
-				boolean[][] marked = new boolean[board.rows()][board.cols()];
-				StringBuilder str = new StringBuilder();
+				str.setLength(0);
 				char c = board.getLetter(i, j);
 				str.append(c); if (c == 'Q') str.append('U');
 				dfs(i, j, marked, board, words, str);
@@ -84,7 +89,7 @@ public class BoggleSolver {
 		if (word == null) throw new IllegalArgumentException("word must be valid.");
 		if (trie.contains(word)) {
 			int length = word.length();
-			if (length < 5) return 1;
+			if (length > 2 && length < 5) return 1;
 			if (length == 5) return 2;
 			if (length == 6) return 3;
 			if (length == 7) return 5;
