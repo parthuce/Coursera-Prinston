@@ -35,6 +35,8 @@ public class Test {
 		    
 		    String str = "";
 		    str.indexOf("", 5);
+		    
+			char c = 'A';
+System.out.println(c - 65);
 		}
-
 }
